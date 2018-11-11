@@ -1,0 +1,79 @@
+
+Digit Classification
+
+goo.gl/GRvxDv In this tutorial, we will learn how to do handwritten digits classification using scikit-learn. There are 10 classes and 1797 examples in total. Each example is an 8 * 8 image.
+
+First we will import all the relevant packages.
+
+[ ]
+
+from sklearn.datasets import load_digits,load_iris
+from sklearn import linear_model
+from sklearn.metrics import accuracy_score
+from sklearn.neighbors import NearestNeighbors
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import tree
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits,load_iris
+from sklearn import linear_model
+from sklearn.metrics import accuracy_score
+from sklearn.neighbors import NearestNeighbors
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import tree
+import matplotlib.pyplot as plt
+Next we will load the dataset.
+
+[ ]
+
+digits = load_digits()
+Next we will split the dataset intro training and test data.
+
+[ ]
+
+X_train = digits.data[:150,:]
+Y_train = digits.target[:150]
+X_test = digits.data[100:,:]
+Y_test = digits.target[100:]
+Next we will instantiate a classifier and fit the training data. In this example we will use logistic regression classifier.
+
+[ ]
+
+#model = linear_model.LogisticRegression(C=1e5)
+model = KNeighborsClassifier(n_neighbors = 3)#NearestNeighbors(n_neighbors=1)
+#model = tree.DecisionTreeClassifier()
+model.fit(X_train,Y_train)
+Now we will randomly pick an image and visualize it. We will also check what the model predicts about the class of the image.
+
+[ ]
+
+datapoint = 12
+plt.gray() 
+plt.matshow(X_test[datapoint].reshape(8,8)) 
+plt.show()
+#print("model's prediction: ",model.predict([X_train[datapoint,:]]))
+print(digits.images[datapoint].shape)
+print("Nearest Neighbor:",model.kneighbors([X_test[datapoint,:]]))
+print("Model's prediction:", model.predict([X_test[datapoint,:]]))
+print(Y_train[105],Y_train[119],Y_train[139])
+Now we will print the accuracy of the classifer in predicting the class of training examples and test examples.
+
+[ ]
+
+#Accuracy on training data
+Y_pred = model.predict(X_test)
+print("training accuracy :",accuracy_score(Y_train,Y_pred_))
+#Accuracy on Test data
+Y_pred_ = model.predict(X_train)
+print("test accuracy :",accuracy_score(Y_test,Y_pred))
+[ ]
+
+#tree.export_graphviz(model,out_file='rules.out')
+To Visualize the tree. Copy the contents of 'rules.out' and paste it in webgraphivz.com
+
+[ ]
+
+​
+
+Copy of Classification.ipynb
+Copy of Classification.ipynb_
+Laying out notebook...
